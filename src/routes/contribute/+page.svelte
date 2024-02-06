@@ -4,7 +4,7 @@
   //@ts-ignore
   import AutoComplete from "simple-svelte-autocomplete";
   import type { Position } from "$models/position";
-  import { Button, SpeedDial, SpeedDialButton } from "flowbite-svelte";
+  import { Button, Popover, SpeedDial, SpeedDialButton } from "flowbite-svelte";
   import Price from "./Price.svelte";
   import {
     type PriceMotoMetadata,
@@ -23,6 +23,12 @@
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
       el.classList.add("w-full");
+    });
+
+    // Fix the position of the dropdown to be in the middle of the input
+    document.querySelectorAll(".autocomplete::after").forEach((el) => {
+      const elE = el as HTMLElement;
+      elE.style.top = "100%";
     });
   });
 
@@ -63,10 +69,9 @@
             >
               {multiLang.travelFrom()}
             </p>
-            <div class="flex w-full">
+            <div class="flex w-full h-[65px] align-middle">
               <AutoComplete
-                class="border border-gray mt-2 w-full rounded-md"
-                style="width: 100%; height: 61px;"
+                class="border h-[61px] border-gray mt-2 w-full rounded-md"
                 items={data.positions}
                 bind:text={startingPositionText}
                 bind:selectedItem={selectedStartingPosition}
@@ -74,6 +79,17 @@
                 valueFieldName="name"
                 maxItemsToShowInList={10}
               ></AutoComplete>
+              <button class="ml-2">
+                <Icon
+                  class="text-primary-700"
+                  icon="ic:outline-add-location-alt"
+                  height={32}
+                  id="popstartPosition"
+                />
+              </button>
+              <Popover triggeredBy="#popstartPosition"
+                >Add a missing location</Popover
+              >
             </div>
           </div>
 
@@ -85,10 +101,9 @@
             >
               {multiLang.to()}
             </p>
-            <div class="flex w-full">
+            <div class="flex w-full h-[65px] align-middle">
               <AutoComplete
-                class="border border-gray mt-2 w-full rounded-md"
-                style="width: 100%; height: 61px;"
+                class="border h-[61px] border-gray mt-2 w-full rounded-md"
                 items={data.positions}
                 bind:text={endPositionText}
                 bind:selectedItem={selectedEndPosition}
@@ -96,6 +111,17 @@
                 valueFieldName="name"
                 maxItemsToShowInList={10}
               ></AutoComplete>
+              <button class="ml-2">
+                <Icon
+                  class="text-primary-700"
+                  icon="ic:outline-add-location-alt"
+                  height={32}
+                  id="popendPosition"
+                />
+              </button>
+              <Popover triggeredBy="#popendPosition"
+                >Add a missing location</Popover
+              >
             </div>
           </div>
 

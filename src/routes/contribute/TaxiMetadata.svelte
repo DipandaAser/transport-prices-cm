@@ -3,9 +3,12 @@
   import Icon from "@iconify/svelte";
   import { Popover, Toggle } from "flowbite-svelte";
   import Toogle from "./Toogle.svelte";
+  //@ts-ignore
+  import { v4 as uuidv4 } from "uuid";
 
   export let metadata: Record<string, any> | PriceTaxiMetadata;
   export let deletePrice: () => void;
+  const internalId = uuidv4();
 </script>
 
 <div class="mt-5 flex flex-row justify-between">
@@ -37,10 +40,8 @@
       height={24}
       color="red"
       class="cursor-pointer visible md:hide"
-      id="pop"
+      id={"pop" + internalId}
     />
   </button>
-
-  <!-- @ts-ignore -->
-  <Popover triggeredBy="#pop">Delete this entry?</Popover>
+  <Popover triggeredBy={"#pop" + internalId}>Delete this entry?</Popover>
 </div>
