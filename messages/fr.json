@@ -1,0 +1,10 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"mainTitle": "Acceder aux prix de toutes les destinations",
+	"mainSubtitle": "Par moto, taxi, bus, train, avion",
+	"travelFrom": "Partir de",
+	"to": "à",
+	"startingLocationPlaceholder": "Où êtes-vous?",
+	"destinationPlaceholder": "Où voulez-vous aller?",
+	"seeAllPrices": "Voir tous les prix"
+}
