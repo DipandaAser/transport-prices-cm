@@ -9,4 +9,6 @@
 <ParaglideJS {i18n}>
   <Header />
   <slot />
+
+  <div style="height: 700px;"></div>
 </ParaglideJS>

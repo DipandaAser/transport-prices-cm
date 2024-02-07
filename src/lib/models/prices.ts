@@ -1,6 +1,18 @@
 //@ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * @type {Price}
+ * 
+ * @property {string} _id
+ * @property {string} startPostionId
+ * @property {string} endPositionId
+ * @property {number} price
+ * @property {TransportType} transportType
+ * @property {Record<string, any> | PriceMotoMetadata | PriceTaxiMetadata} transportMetadata
+ * @property {Date} createdAt
+ */
+//This is the type price
 export interface Price {
     _id: string;
     startPostionId: string;
@@ -8,18 +20,25 @@ export interface Price {
     price: number;
     transportType: TransportType;
     transportMetadata: Record<string, any> | PriceMotoMetadata | PriceTaxiMetadata;
+    createdAt: Date;
 }
 
 export interface PriceMotoMetadata {
     vip: boolean;
     day: boolean;
 }
-
+/**
+ *
+ *
+ * @export
+ * @interface PriceTaxiMetadata
+ */
 export interface PriceTaxiMetadata {
     vip: boolean;
     day: boolean;
 }
 
+/** @enum {string} */
 export enum TransportType {
     Moto = "moto",
     Taxi = "taxi",
@@ -71,7 +90,8 @@ export function generateRandomPrice(): Price {
         endPositionId: "",
         price: 100,
         transportType: TransportTypes[Math.floor(Math.random() * TransportTypes.length)],
-        transportMetadata: {}
+        transportMetadata: {},
+        createdAt: new Date()
     }
 
     p.transportMetadata = generateMetadataForTransportType(p.transportType);

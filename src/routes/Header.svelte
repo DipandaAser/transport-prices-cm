@@ -29,12 +29,20 @@
       $page.url.pathname
     ) == '/'
       ? scrollPosition > 0
-        ? 'bg-transparent'
+        ? 'fixed'
         : 'bg-transparent fixed'
       : ''}  "
   >
     <NavBrand href="/">
-      <img src={logo} class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
+      <img
+        src={logo}
+        class="me-3 h-6 sm:h-9 {i18n.route($page.url.pathname) == '/'
+          ? scrollPosition > 0
+            ? 'hide'
+            : 'visible'
+          : ''}"
+        alt="Flowbite Logo"
+      />
       {#if i18n.route($page.url.pathname) !== "/"}
         <span
           class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"

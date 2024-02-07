@@ -6,7 +6,7 @@
 
 <svelte:head>
   <title>Home</title>
-  <meta name="description" content="Svelte demo app" />
+  <meta name="description" content="Find the price for your destination" />
 </svelte:head>
 
 <div

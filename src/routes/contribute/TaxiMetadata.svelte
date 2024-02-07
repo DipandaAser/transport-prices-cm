@@ -39,7 +39,7 @@
       icon="mdi:trash-outline"
       height={24}
       color="red"
-      class="cursor-pointer visible md:hide"
+      class="cursor-pointer visible md:hide underline"
       id={"pop" + internalId}
     />
   </button>

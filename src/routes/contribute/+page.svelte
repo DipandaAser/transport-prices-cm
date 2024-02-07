@@ -22,7 +22,9 @@
 
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
+      const eel = el as HTMLElement;
       el.classList.add("w-full");
+      eel.style.setProperty("--after-top", "100%");
     });
 
     // Fix the position of the dropdown to be in the middle of the input
@@ -44,9 +46,12 @@
     (!selectedEndPosition && endPositionText !== "");
 
   let prices: PriceClass[] = [generateRandomPrice()];
-
-  $: console.log("prices", prices);
 </script>
+
+<svelte:head>
+  <title>Contribute</title>
+  <meta name="description" content="Contribute to the transport price" />
+</svelte:head>
 
 <div class="mb-10">
   <div class="container mx-auto w-10/12">
@@ -175,3 +180,9 @@
     </form>
   </div>
 </div>
+
+<style lang="css">
+  .autocomplete::after {
+    top: 100% !important;
+  }
+</style>
