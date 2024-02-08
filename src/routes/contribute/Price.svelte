@@ -15,10 +15,13 @@
     TransportTypes,
     type Price,
     generateMetadataForTransportType,
+    TransportTypeLabelsTranslated,
   } from "$models/prices";
   import MotoMetadata from "./MotoMetadata.svelte";
   import { onMount } from "svelte";
   import TaxiMetadata from "./TaxiMetadata.svelte";
+  import * as multiLang from "$paraglide/messages";
+  import { languageTag } from "$paraglide/runtime";
   export let price: Price;
   export let deletePrice: () => void;
   let dropdownOpen = false;
@@ -46,7 +49,9 @@
         <!-- <span class="text-xl">
           {TransportTypeIconsInDropdown[transportType]}
         </span> -->
-        &nbsp; {TransportTypeLabels[price.transportType]}
+        &nbsp; {TransportTypeLabelsTranslated[languageTag()][
+          price.transportType
+        ]}
         <Icon
           class="mr-0"
           icon="basil:caret-down-solid"
@@ -69,7 +74,7 @@
                 icon={TransportTypeIconsInDropdown[tp]}
                 height={24}
               />
-              {TransportTypeLabels[tp]}
+              {TransportTypeLabelsTranslated[languageTag()][tp]}
             </div>
           </DropdownItem>
         {/each}

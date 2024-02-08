@@ -3,6 +3,8 @@ import type { Position } from "$lib/models/position";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
 
+
+
 export const positionCollectionName = "positions";
 
 export async function createPosition(data: Position) {
@@ -30,4 +32,23 @@ export async function getAllPositions(): Promise<Position[]> {
     })
 
     return positions
+}
+
+export async function getPositionById(id: string): Promise<Position | null> {
+    const query = { _id: id as any };
+    const data = await db.collection(positionCollectionName).findOne(query, {})
+    if (!data) {
+        return null
+    }
+
+    return {
+        _id: data._id as unknown as string,
+        name: data.name,
+        cityId: data.cityId,
+        stateID: data.stateID,
+        isCity: data.isCity,
+        isState: data.isState,
+        latitude: data.latitude,
+        longitude: data.longitude
+    } as Position
 }

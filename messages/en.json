@@ -6,5 +6,14 @@
 	"to": "To",
 	"startingLocationPlaceholder": "Enter a starting location",
 	"destinationPlaceholder": "Where do you want to go?",
-	"seeAllPrices": "See all prices"
+	"seeAllPrices": "See all prices",
+	"prices": "Prices",
+	"price": "Price",
+	"addAnotherPrice": "Add another price",
+	"save": "Save",
+	"addMissingLocation": "Add a missing location",
+	"deleteThisPrice": "Delete this price",
+	"day": "Day",
+	"night": "Night"
+
 }

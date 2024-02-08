@@ -4,7 +4,14 @@
   //@ts-ignore
   import AutoComplete from "simple-svelte-autocomplete";
   import type { Position } from "$models/position";
-  import { Button, Popover, SpeedDial, SpeedDialButton } from "flowbite-svelte";
+  import {
+    Button,
+    Modal,
+    Popover,
+    SpeedDial,
+    SpeedDialButton,
+    Spinner,
+  } from "flowbite-svelte";
   import Price from "./Price.svelte";
   import {
     type PriceMotoMetadata,
@@ -17,6 +24,7 @@
   import { v4 as uuidv4 } from "uuid";
   import * as multiLang from "$paraglide/messages";
   import { text } from "@sveltejs/kit";
+  import { createPriceAPI } from "$lib/apiClient/prices";
 
   export let data: PageData;
 
@@ -46,12 +54,136 @@
     (!selectedEndPosition && endPositionText !== "");
 
   let prices: PriceClass[] = [generateRandomPrice()];
+  let pricesSaved: PriceClass[] = [];
+  let failedToSave: number = 0;
+  let openModal = false;
+  let modalCanCloseOutside = true;
+  let modalCanDismiss = true;
+  let modalText = "";
+  let modalTitle = "";
+  let modalShowProcessing = false;
+  let processingEnded = false;
+  let totalPrices = 0;
+
+  async function save() {
+    pricesSaved = [];
+    totalPrices = prices.length;
+    openModal = true;
+    console.log("selectedEndPosition - onSave: ", selectedEndPosition);
+    console.log(
+      "selectedStartingPosition - onSave : ",
+      selectedStartingPosition
+    );
+    if (
+      selectedStartingPosition === undefined ||
+      selectedEndPosition === undefined
+    ) {
+      modalTitle = "Error";
+      modalText = "Please select a starting and ending position";
+      return;
+    }
+
+    if (prices.length === 0) {
+      modalTitle = "Error";
+      modalText = "Please add at least one price";
+      return;
+    }
+
+    modalCanCloseOutside = false;
+    modalCanDismiss = false;
+    modalShowProcessing = true;
+    modalTitle = "Saving...";
+    modalText = "Your contribution is being saved...";
+
+    const pricesCloned = [...prices];
+
+    for (let index = 0; index < pricesCloned.length; index++) {
+      const element: PriceClass = {
+        _id: pricesCloned[index]._id,
+        transportType: pricesCloned[index].transportType,
+        transportMetadata: pricesCloned[index].transportMetadata,
+        startPositionId: selectedStartingPosition._id,
+        endPositionId: selectedEndPosition._id,
+        price: pricesCloned[index].price,
+        createdAt: pricesCloned[index].createdAt,
+      };
+
+      await createPriceAPI(element)
+        .then((res) => {
+          pricesSaved = [...pricesSaved, element];
+          prices = prices.filter((p) => p._id !== element._id);
+          console.log("pricesSaved: ", pricesSaved);
+        })
+        .catch((err) => {
+          failedToSave++;
+          console.error("Failed to save price: ", err);
+        });
+    }
+
+    modalCanDismiss = true;
+    processingEnded = true;
+    modalCanCloseOutside = true;
+    modalTitle = "Saved";
+  }
+
+  $: console.log("selectedEndPosition: ", selectedEndPosition);
+  $: console.log("selectedStartingPosition: ", selectedStartingPosition);
 </script>
 
 <svelte:head>
   <title>Contribute</title>
   <meta name="description" content="Contribute to the transport price" />
 </svelte:head>
+
+<Modal
+  bind:title={modalTitle}
+  bind:open={openModal}
+  bind:outsideclose={modalCanCloseOutside}
+  bind:dismissable={modalCanDismiss}
+>
+  <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+    {#if modalShowProcessing}
+      <div class="flex justify-evenly">
+        <span class="text-primary-700"
+          >Saved: {pricesSaved.length}/{totalPrices}</span
+        >
+        {#if failedToSave > 0}
+          <span class="text-red-700 animate-pulse">Failed: {failedToSave}</span>
+        {/if}
+      </div>
+      <div class="flex justify-center mt-4">
+        {#if processingEnded}
+          <Icon
+            class="text-primary-700"
+            icon="line-md:check-list-3-twotone"
+            height={64}
+          />
+        {:else}
+          <Spinner size="20" />
+        {/if}
+      </div>
+    {:else}
+      {modalText}
+    {/if}
+  </p>
+
+  <svelte:fragment slot="footer">
+    {#if processingEnded}
+      <Button
+        on:click={() => {
+          alert("Working on it");
+          openModal = false;
+        }}>See result</Button
+      >
+      <Button
+        color="alternative"
+        on:click={() => {
+          openModal = false;
+        }}>Close</Button
+      >
+    {/if}
+  </svelte:fragment>
+</Modal>
 
 <div class="mb-10">
   <div class="container mx-auto w-10/12">
@@ -93,7 +225,7 @@
                 />
               </button>
               <Popover triggeredBy="#popstartPosition"
-                >Add a missing location</Popover
+                >{multiLang.addMissingLocation()}</Popover
               >
             </div>
           </div>
@@ -125,7 +257,7 @@
                 />
               </button>
               <Popover triggeredBy="#popendPosition"
-                >Add a missing location</Popover
+                >{multiLang.addMissingLocation()}</Popover
               >
             </div>
           </div>
@@ -137,7 +269,7 @@
               style=" font-family: &quot;Inter&quot;, sans-serif;"
               class="mx-4 text-lg font-bold"
             >
-              Prices
+              {multiLang.prices()}
             </div>
             <div class="flex-1 border-b border-gray-500"></div>
           </div>
@@ -162,18 +294,15 @@
                 prices = [...prices, generateRandomPrice()];
               }}
             >
-              <Icon icon="charm:plus" height={24} /> Add another price
+              <Icon icon="charm:plus" height={24} />
+              {multiLang.addAnotherPrice()}
             </Button>
           </div>
         </div>
         <div class="w-full mt-10">
-          <Button
-            class="w-full"
-            on:click={() => {
-              alert("Saved");
-            }}
-          >
-            <Icon class="mr-2" icon="bx:bx-save" height={24} /> Save
+          <Button class="w-full" on:click={save}>
+            <Icon class="mr-2" icon="bx:bx-save" height={24} />
+            {multiLang.save()}
           </Button>
         </div>
       </div>

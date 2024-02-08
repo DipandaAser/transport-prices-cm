@@ -16,7 +16,7 @@
     <div class="mb-6 md:mb-0">
       <FooterBrand href="#" src={logo} alt="Transport Logo" name="Transport" />
     </div>
-    <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+    <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
       <div>
         <h2
           class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white"
@@ -48,6 +48,21 @@
         <FooterLinkGroup>
           <FooterLink liClass="mb-4" href="#">Privacy Policy</FooterLink>
           <FooterLink liClass="mb-4" href="#">Terms & Conditions</FooterLink>
+        </FooterLinkGroup>
+      </div>
+      <div>
+        <h2
+          class="mb-6 text-sm font-semibold uppercase text-gray-900 dark:text-white"
+        >
+          Language | Langue
+        </h2>
+        <FooterLinkGroup>
+          <FooterLink liClass="mb-4" href="#" hreflang="en"
+            >English | Anglais</FooterLink
+          >
+          <FooterLink liClass="mb-4" href="#" hreflang="fr"
+            >French | Français</FooterLink
+          >
         </FooterLinkGroup>
       </div>
     </div>

@@ -6,7 +6,10 @@
 
 <svelte:head>
   <title>Home</title>
-  <meta name="description" content="Find the price for your destination" />
+  <meta
+    name="description"
+    content="Find the price for your destination in Cameroon"
+  />
 </svelte:head>
 
 <div

@@ -2,7 +2,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 /**
- * @type {Price}
  * 
  * @property {string} _id
  * @property {string} startPostionId
@@ -15,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 //This is the type price
 export interface Price {
     _id: string;
-    startPostionId: string;
+    startPositionId: string;
     endPositionId: string;
     price: number;
     transportType: TransportType;
@@ -50,16 +49,33 @@ export enum TransportType {
 export const TransportTypeLabels = {
     [TransportType.Moto]: "Moto",
     [TransportType.Taxi]: "Taxi",
-    [TransportType.Train]: "Train",
     [TransportType.Bus]: "Bus | Car",
+    [TransportType.Train]: "Train",
     [TransportType.Airplane]: "Airplane"
+};
+
+export const TransportTypeLabelsTranslated = {
+    "en": {
+        [TransportType.Moto]: "MotorBike",
+        [TransportType.Taxi]: "Taxi",
+        [TransportType.Train]: "Train",
+        [TransportType.Bus]: "Bus | Car",
+        [TransportType.Airplane]: "Airplane"
+    },
+    "fr": {
+        [TransportType.Moto]: "Moto",
+        [TransportType.Taxi]: "Taxi",
+        [TransportType.Train]: "Train",
+        [TransportType.Bus]: "Bus | Car",
+        [TransportType.Airplane]: "Avion"
+    },
 };
 
 export const TransportTypes = [
     TransportType.Moto,
     TransportType.Taxi,
-    TransportType.Train,
     TransportType.Bus,
+    TransportType.Train,
     TransportType.Airplane
 ]
 
@@ -86,7 +102,7 @@ export const TransportTypeIconsInSearch = {
 export function generateRandomPrice(): Price {
     let p = {
         _id: uuidv4(),
-        startPostionId: "",
+        startPositionId: "",
         endPositionId: "",
         price: 100,
         transportType: TransportTypes[Math.floor(Math.random() * TransportTypes.length)],

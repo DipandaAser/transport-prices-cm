@@ -6,5 +6,13 @@
 	"to": "à",
 	"startingLocationPlaceholder": "Où êtes-vous?",
 	"destinationPlaceholder": "Où voulez-vous aller?",
-	"seeAllPrices": "Voir tous les prix"
+	"seeAllPrices": "Voir tous les prix",
+	"prices": "Prix",
+	"price": "Prix",
+	"addAnotherPrice": "Ajouter un tarif",
+	"save": "Enregistrer",
+	"addMissingLocation": "Ajouter une position manquante",
+	"deleteThisPrice": "Suprimmer ce tarif",
+	"day": "Jour",
+	"night": "Nuit"
 }
