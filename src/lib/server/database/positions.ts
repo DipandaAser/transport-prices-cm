@@ -1,4 +1,4 @@
-import db from "./db";
+import { getDB } from "./db";
 import type { Position } from "$lib/models/position";
 // @ts-ignore
 import { v4 as uuidv4 } from 'uuid';
@@ -9,11 +9,11 @@ export const positionCollectionName = "positions";
 
 export async function createPosition(data: Position) {
     // @ts-ignore
-    return db.collection(positionCollectionName).insertOne(data);
+    return getDB().collection(positionCollectionName).insertOne(data);
 }
 
 export async function getAllPositions(): Promise<Position[]> {
-    const data = await db.collection(positionCollectionName).find({}).toArray()
+    const data = await getDB().collection(positionCollectionName).find({}).toArray()
     if (!data) {
         return []
     }
@@ -28,6 +28,7 @@ export async function getAllPositions(): Promise<Position[]> {
             isState: position.isState,
             latitude: position.latitude,
             longitude: position.longitude
+
         }
     })
 
@@ -36,7 +37,7 @@ export async function getAllPositions(): Promise<Position[]> {
 
 export async function getPositionById(id: string): Promise<Position | null> {
     const query = { _id: id as any };
-    const data = await db.collection(positionCollectionName).findOne(query, {})
+    const data = await getDB().collection(positionCollectionName).findOne(query, {})
     if (!data) {
         return null
     }
