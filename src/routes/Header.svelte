@@ -1,15 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import logo from "$lib/images/svelte-logo.svg";
-  import github from "$lib/images/github.svg";
-  import {
-    Button,
-    Navbar,
-    NavBrand,
-    NavLi,
-    NavUl,
-    NavHamburger,
-  } from "flowbite-svelte";
+  import { Button, Navbar, NavBrand } from "flowbite-svelte";
   import * as runtime from "$paraglide/runtime";
   import { i18n } from "$lib/i18n";
   import { onMount } from "svelte";
