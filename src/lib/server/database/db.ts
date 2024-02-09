@@ -1,9 +1,10 @@
 import { Db, MongoClient } from "mongodb"
 import { env } from '$env/dynamic/private';
 
-const client = new MongoClient(env.DB_URI)
+let client: MongoClient;
 
 export async function connect() {
+    client = new MongoClient(env.DB_URI);
     await client.connect()
 }
 
