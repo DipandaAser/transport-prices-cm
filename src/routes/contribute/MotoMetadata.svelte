@@ -30,13 +30,11 @@
     <Toggle bind:checked={metadata.vip}>Avec bachement</Toggle>
   </div>
 
-  <button
-    class="flex flex-col-reverse"
-    on:click={() => {
-      deletePrice();
-    }}
-  >
+  <button class="flex flex-col-reverse cursor-default">
     <Icon
+      on:click={() => {
+        deletePrice();
+      }}
       icon="mdi:trash-outline"
       height={24}
       color="red"
