@@ -10,12 +10,12 @@ People can contribute based on multiple criteria such as:
 
 ### As a non technical people
 
-- Go to the (contribute page)[https://transport.cm/contribute] and submit the prices you usually pay
-- (Click here)[https://github.com/DipandaAser/transport-prices-cm/issues/new/choose] to create an issue or request a feature
+- Go to the [contribute page](https://transport.cm/contribute) and submit the prices you usually pay
+- [Click here](https://github.com/DipandaAser/transport-prices-cm/issues/new/choose) to create an issue or request a feature
 
 ### As a technical people
 
-- Dear designers, i'm not a designer so don't be scare 😁 if you see a very bad UI/UX decision on this project. Please kindly suggest changes by (creating an issue)[https://github.com/DipandaAser/transport-prices-cm/issues/new/choose] 
+- Dear designers, i'm not a designer so don't be scare 😁 if you see a very bad UI/UX decision on this project. Please kindly suggest changes by [creating an issue](https://github.com/DipandaAser/transport-prices-cm/issues/new/choose)
 
 - Developers, 👇
 
