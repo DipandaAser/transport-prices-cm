@@ -5,7 +5,9 @@
     Dropdown,
     DropdownItem,
     Input,
+    Modal,
     Popover,
+    Textarea,
   } from "flowbite-svelte";
   import Icon from "@iconify/svelte";
   import {
@@ -33,6 +35,12 @@
     priceInput.step = "25";
     priceInput.min = "100";
   });
+
+  function openCommentModalFunction() {
+    openCommentModal = true;
+  }
+
+  let openCommentModal = false;
 </script>
 
 <div class="w-full flex items-center space-x-2">
@@ -89,13 +97,26 @@
       >
     </ButtonGroup>
     {#if price.transportType === TransportType.Moto}
-      <MotoMetadata bind:metadata={price.transportMetadata} bind:deletePrice
+      <MotoMetadata
+        bind:metadata={price.transportMetadata}
+        bind:deletePrice
+        {openCommentModalFunction}
       ></MotoMetadata>
     {:else if price.transportType === TransportType.Taxi}
-      <TaxiMetadata bind:metadata={price.transportMetadata} bind:deletePrice
+      <TaxiMetadata
+        bind:metadata={price.transportMetadata}
+        bind:deletePrice
+        {openCommentModalFunction}
       ></TaxiMetadata>
     {:else}
-      <div class="mt-5 flex flex-row justify-end">
+      <div class="mt-5 flex justify-between">
+        <button
+          on:click={openCommentModalFunction}
+          class="text-primary-700 flex"
+        >
+          <Icon class="mr-1" icon="mdi:comment-plus-outline" height={24} />
+          Add a comment
+        </button>
         <button
           on:click={() => {
             deletePrice();
@@ -113,5 +134,20 @@
         <Popover triggeredBy="#pop">Delete this entry?</Popover>
       </div>
     {/if}
+
+    <Modal
+      bind:open={openCommentModal}
+      dismissable={true}
+      autoclose={true}
+      outsideclose={true}
+      title="Write your comment"
+      class="w-full"
+    >
+      <Textarea
+        bind:value={price.comment}
+        placeholder="Enter your comment"
+        rows={10}
+      ></Textarea>
+    </Modal>
   </div>
 </div>

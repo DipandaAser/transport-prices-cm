@@ -1,7 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
 	"mainTitle": "Discover the price for all destinations",
-	"mainSubtitle": "By Plane, Train, Bus, Car, Ferry, Bike share, Driving and Walking",
+	"mainSubtitle": "By Motobike, Taxi, Bus, Train and Plane",
 	"travelFrom": "Travel From",
 	"to": "To",
 	"startingLocationPlaceholder": "Enter a starting location",

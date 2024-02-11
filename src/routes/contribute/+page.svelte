@@ -4,14 +4,7 @@
   //@ts-ignore
   import AutoComplete from "simple-svelte-autocomplete";
   import type { Position } from "$models/position";
-  import {
-    Button,
-    Modal,
-    Popover,
-    SpeedDial,
-    SpeedDialButton,
-    Spinner,
-  } from "flowbite-svelte";
+  import { Button, Modal, Popover, Spinner } from "flowbite-svelte";
   import Price from "./Price.svelte";
   import {
     type PriceMotoMetadata,
@@ -23,22 +16,15 @@
   //@ts-ignore
   import { v4 as uuidv4 } from "uuid";
   import * as multiLang from "$paraglide/messages";
-  import { text } from "@sveltejs/kit";
   import { createPriceAPI } from "$lib/apiClient/prices";
 
   export let data: PageData;
 
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
-      const eel = el as HTMLElement;
+      // Fix the position of the dropdown to be in the middle of the input
+      (el as HTMLElement).style.setProperty("height", "113%");
       el.classList.add("w-full");
-      eel.style.setProperty("--after-top", "100%");
-    });
-
-    // Fix the position of the dropdown to be in the middle of the input
-    document.querySelectorAll(".autocomplete::after").forEach((el) => {
-      const elE = el as HTMLElement;
-      elE.style.top = "100%";
     });
   });
 
@@ -105,6 +91,7 @@
         startPositionId: selectedStartingPosition._id,
         endPositionId: selectedEndPosition._id,
         price: pricesCloned[index].price,
+        comment: pricesCloned[index].comment,
         createdAt: pricesCloned[index].createdAt,
       };
 
@@ -125,9 +112,6 @@
     modalCanCloseOutside = true;
     modalTitle = "Saved";
   }
-
-  $: console.log("selectedEndPosition: ", selectedEndPosition);
-  $: console.log("selectedStartingPosition: ", selectedStartingPosition);
 </script>
 
 <svelte:head>
@@ -309,9 +293,3 @@
     </form>
   </div>
 </div>
-
-<style lang="css">
-  .autocomplete::after {
-    top: 100% !important;
-  }
-</style>

@@ -19,12 +19,14 @@ export interface Price {
     price: number;
     transportType: TransportType;
     transportMetadata: Record<string, any> | PriceMotoMetadata | PriceTaxiMetadata;
+    comment: string;
     createdAt: Date;
 }
 
 export interface PriceMotoMetadata {
     vip: boolean;
     day: boolean;
+    night: boolean;
 }
 /**
  *
@@ -35,6 +37,7 @@ export interface PriceMotoMetadata {
 export interface PriceTaxiMetadata {
     vip: boolean;
     day: boolean;
+    night: boolean;
 }
 
 /** @enum {string} */
@@ -107,6 +110,7 @@ export function generateRandomPrice(): Price {
         price: 100,
         transportType: TransportTypes[Math.floor(Math.random() * TransportTypes.length)],
         transportMetadata: {},
+        comment: "",
         createdAt: new Date()
     }
 
@@ -138,12 +142,14 @@ export function generateMetadataForTransportType(transportType: TransportType): 
         case TransportType.Moto:
             return {
                 vip: Math.random() > 0.5 && Math.random() < 0.8,
-                day: Math.random() > 0.5 && Math.random() < 0.8
+                day: Math.random() > 0.4 && Math.random() < 0.7,
+                night: Math.random() > 0.3 && Math.random() < 0.6,
             }
         case TransportType.Taxi:
             return {
                 vip: Math.random() > 0.5 && Math.random() < 0.8,
-                day: Math.random() > 0.5 && Math.random() < 0.8
+                day: Math.random() > 0.4 && Math.random() < 0.7,
+                night: Math.random() > 0.3 && Math.random() < 0.6,
             }
         case TransportType.Train:
             return {}

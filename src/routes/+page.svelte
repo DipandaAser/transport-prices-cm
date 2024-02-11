@@ -2,6 +2,7 @@
   import welcome from "$lib/images/svelte-welcome.webp";
   import welcome_fallback from "$lib/images/svelte-welcome.png";
   import * as multiLang from "$paraglide/messages";
+  import Icon from "@iconify/svelte";
 </script>
 
 <svelte:head>
@@ -13,21 +14,33 @@
 </svelte:head>
 
 <div
-  class="relative bg-cover bg-center bg-no-repeat backdrop-opacity-10 py-16 bg-[url('/mobile-bg.jpg')] lg:bg-[url('/bg.jpg')]"
+  class="relative bg-cover bg-center bg-no-repeat backdrop-opacity-10 py-16 bg-[url('/bg-mb-06.webp')] md:bg-[url('/bg-07.webp')]"
 >
-  <div class="container h-[32rem] lg:h-auto mx-auto px-4">
-    <div class="flex justify-start lg:justify-evenly flex-col lg:flex-row">
-      <div class="mr-5 mb-5 text-white text-left">
-        <h1 style="text-align: start;">{multiLang.mainTitle()}</h1>
-        <h2 class="font-normal">
+  <div
+    class="container lg:flex h-[32rem] lg:h-[29rem] mx-auto my-auto px-4 justify-around"
+  >
+    <div
+      class="lg:justify-evenly flex flex-col space-y-10 lg:space-y-0 lg:space-x-2 lg:flex-row"
+    >
+      <div
+        class="lg:max-w-[50%] text-white text-left flex flex-col justify-center"
+      >
+        <span></span>
+        <h1 class="text-start tracking-normal text-3xl lg:text-6xl">
+          {multiLang.mainTitle()}
+        </h1>
+        <h2 class="font-bold uppercase tracking-wide">
           {multiLang.mainSubtitle()}
         </h2>
       </div>
       <div
-        class="w-full lg:w-[400px] self-center bg-white rounded-lg p-4 shadow-lg"
+        class="lg:p-[32px] w-full lg:w-[500px] lg:h-[15rem] lg:justify-around space-y-4 self-center bg-white rounded-lg p-4 shadow-lg"
       >
-        <div class="mb-4">
-          <label for="from" class="block text-sm font-medium text-gray-700">
+        <div class="">
+          <label
+            for="from"
+            class="block text-sm font-medium text-gray-700 uppercase"
+          >
             {multiLang.travelFrom()}
           </label>
           <input
@@ -36,8 +49,11 @@
             placeholder={multiLang.startingLocationPlaceholder()}
           />
         </div>
-        <div class="mb-4">
-          <label for="to" class="block text-sm font-medium text-gray-700">
+        <div class="">
+          <label
+            for="to"
+            class="block text-sm font-medium text-gray-700 uppercase"
+          >
             {multiLang.to()}
           </label>
           <input
@@ -47,11 +63,18 @@
           />
         </div>
         <button
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 w-full bg-[#bd1e59] text-white"
+          class="space-x-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 w-full bg-[#bd1e59] text-white"
         >
-          {multiLang.seeAllPrices()}
+          <Icon icon="fluent:search-12-filled" height={24} />
+          <span class="font-medium tracking-[.03em] text-base">
+            {multiLang.seeAllPrices()}
+          </span>
         </button>
       </div>
     </div>
   </div>
+</div>
+
+<div class="mt-8">
+  <h1 class="text-black">How Transport.CM works</h1>
 </div>
