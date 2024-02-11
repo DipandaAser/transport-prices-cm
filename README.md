@@ -1,38 +1,39 @@
-# create-svelte
+# Transport Price (Work in progress)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Transport Price is a website that allow people to contribute how much they usually pay to get from one place to another in Cameroon in order to provide a source of thruth to people when the search how much they need to pay.
+People can contribute based on multiple criteria such as: 
+- the transport type (Motorbike 🏍, Taxi 🚕, Bus 🚌, Canoe ⛵, Airplaine 🛫)
+- the time of the day (Day 🌞, Night 🌚)
+- the rank (VIP or not)
 
-## Creating a project
+## How to contribute
 
-If you're seeing this, you've probably already done this step. Congrats!
+### As a non technical people
+
+- Go to the (contribute page)[https://transport.cm/contribute] and submit the prices you usually pay
+- (Click here)[https://github.com/DipandaAser/transport-prices-cm/issues/new/choose] to create an issue or request a feature
+
+### As a technical people
+
+- Dear designers, i'm not a designer so don't be scare 😁 if you see a very bad UI/UX decision on this project. Please kindly suggest changes by (creating an issue)[https://github.com/DipandaAser/transport-prices-cm/issues/new/choose] 
+
+- Developers, 👇
+
+## Dependencies
+
+- Node
+- MongoDb
+
+### Run
+
+Before running the app, you may want to create a `.env` file,
+copy the content of `.env.example` and paste it in the newly created `.env`.
+You can now edit the `DB_URI` which is the MongoDB URI
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
+# install dependencies
+$ pnpm install
 
-# create a new project in my-app
-npm create svelte@latest my-app
+# serve with hot reload at localhost:5173
+$ pnpm run dev
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
