@@ -14,7 +14,7 @@
 </svelte:head>
 
 <div
-  class="relative bg-cover bg-center bg-no-repeat backdrop-opacity-10 py-16 bg-[url('/bg-mb-06.webp')] md:bg-[url('/bg-07.webp')]"
+  class="relative bg-cover bg-center bg-no-repeat backdrop-opacity-10 py-16 bg-[url('/bg-mb-01.webp')] md:bg-[url('/bg-mb-01.webp')]"
 >
   <div
     class="container lg:flex h-[32rem] lg:h-[29rem] mx-auto my-auto px-4 justify-around"
