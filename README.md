@@ -1,6 +1,6 @@
 # Transport Price (Work in progress)
 
-Transport Price is a website that allow people to contribute how much they usually pay to get from one place to another in Cameroon in order to provide a source of thruth to people when the search how much they need to pay.
+Transport Price is a website that allow people to contribute how much they usually pay to get from one place to another in Cameroon in order to provide a source of thruth to people when they search how much they need to pay.
 People can contribute based on multiple criteria such as: 
 - the transport type (Motorbike 🏍, Taxi 🚕, Bus 🚌, Canoe ⛵, Airplaine 🛫)
 - the time of the day (Day 🌞, Night 🌚)
