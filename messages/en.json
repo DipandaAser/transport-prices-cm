@@ -1,5 +1,7 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"htmlTitle": "Discover the price for all destinations in Cameroon",
+	"htmlDescription": "Discover the price for all destinations in Cameroon by Motobike, Taxi, Bus, Train and Plane",
 	"mainTitle": "Discover the price for all destinations",
 	"mainSubtitle": "By Motobike, Taxi, Bus, Train and Plane",
 	"travelFrom": "Travel From",
@@ -14,6 +16,11 @@
 	"addMissingLocation": "Add a missing location",
 	"deleteThisPrice": "Delete this price",
 	"day": "Day",
-	"night": "Night"
-
+	"night": "Night",
+	"inwhichParentLocationThisLocationIsLocated": "In which {parentLocation} this {location} is located ?",
+	"chooseTheLocationType": "Choose the location type",
+	"nameOf": "Name of the",
+	"notFoundYourLocationAddIt": "Not found your {locationType} {location}? Add it",
+	"savingInProgress": "Saving in progress",
+	"locationAddedSuccessfully": "Location added successfully"
 }

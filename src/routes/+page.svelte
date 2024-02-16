@@ -6,11 +6,8 @@
 </script>
 
 <svelte:head>
-  <title>Home</title>
-  <meta
-    name="description"
-    content="Find the price for your destination in Cameroon"
-  />
+  <title>{multiLang.htmlTitle()}</title>
+  <meta name="description" content={multiLang.htmlDescription()} />
 </svelte:head>
 
 <div

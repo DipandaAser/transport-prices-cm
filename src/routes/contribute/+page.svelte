@@ -1,14 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import type { PageData } from "./$types";
   //@ts-ignore
   import AutoComplete from "simple-svelte-autocomplete";
-  import type { Position } from "$models/position";
-  import { Button, Modal, Popover, Spinner } from "flowbite-svelte";
+  import { PositionTypes, type Position } from "$models/position";
+  import { Button, Modal, Popover, Spinner, Toast } from "flowbite-svelte";
   import Price from "./Price.svelte";
   import {
-    type PriceMotoMetadata,
-    TransportType,
     type Price as PriceClass,
     generateRandomPrice,
   } from "$models/prices";
@@ -17,8 +14,17 @@
   import { v4 as uuidv4 } from "uuid";
   import * as multiLang from "$paraglide/messages";
   import { createPriceAPI } from "$lib/apiClient/prices";
+  import AddPosition from "./AddPosition.svelte";
+  import { pushState } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { browser } from "$app/environment";
+  import { searchPositionAPI } from "$lib/apiClient/positions";
 
-  export let data: PageData;
+  function showAddPositionModal() {
+    pushState("", {
+      showAddPositionModal: true,
+    });
+  }
 
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
@@ -32,12 +38,6 @@
   let selectedEndPosition: Position;
   let startingPositionText: string = "";
   let endPositionText: string = "";
-
-  let showSelectedPositionCreation = false;
-
-  $: showSelectedPositionCreation =
-    (!selectedStartingPosition && startingPositionText !== "") ||
-    (!selectedEndPosition && endPositionText !== "");
 
   let prices: PriceClass[] = [generateRandomPrice()];
   let pricesSaved: PriceClass[] = [];
@@ -58,7 +58,7 @@
     console.log("selectedEndPosition - onSave: ", selectedEndPosition);
     console.log(
       "selectedStartingPosition - onSave : ",
-      selectedStartingPosition
+      selectedStartingPosition,
     );
     if (
       selectedStartingPosition === undefined ||
@@ -112,6 +112,28 @@
     modalCanCloseOutside = true;
     modalTitle = "Saved";
   }
+  function forceAutocompletelistDirection(s: string) {
+    if (!browser) return;
+    const autoCompleteList = document.querySelector(".autocomplete-list");
+
+    if (autoCompleteList == null || undefined) return;
+
+    (autoCompleteList as HTMLElement).style.top = "0px";
+  }
+
+  async function searchPosition(keyword: string) {
+    let positionToSearch: PositionTypes = PositionTypes.All;
+
+    return searchPositionAPI(positionToSearch)
+      .then((positions) => {
+        return positions;
+      })
+      .catch(() => {
+        return [];
+      });
+  }
+  $: forceAutocompletelistDirection(startingPositionText);
+  $: forceAutocompletelistDirection(endPositionText);
 </script>
 
 <svelte:head>
@@ -136,15 +158,17 @@
         {/if}
       </div>
       <div class="flex justify-center mt-4">
-        {#if processingEnded}
-          <Icon
-            class="text-primary-700"
-            icon="line-md:check-list-3-twotone"
-            height={64}
-          />
-        {:else}
-          <Spinner size="20" />
-        {/if}
+        {#key processingEnded}
+          {#if processingEnded}
+            <Icon
+              class="text-primary-700"
+              icon="line-md:check-list-3-twotone"
+              height={64}
+            />
+          {:else}
+            <Spinner size="20" />
+          {/if}
+        {/key}
       </div>
     {:else}
       {modalText}
@@ -168,6 +192,13 @@
     {/if}
   </svelte:fragment>
 </Modal>
+
+<!-- @ts-ignore -->
+{#if $page.state.showAddPositionModal}
+  <AddPosition open={true} />
+{/if}
+<!-- TODO: uncomment the code when going to prod. And comment the following code -->
+<!-- <AddPosition open={true} /> -->
 
 <div class="mb-10">
   <div class="container mx-auto w-10/12">
@@ -193,14 +224,16 @@
             <div class="flex w-full h-[65px] align-middle">
               <AutoComplete
                 class="border h-[61px] border-gray mt-2 w-full rounded-md"
-                items={data.positions}
+                searchFunction={searchPosition}
                 bind:text={startingPositionText}
                 bind:selectedItem={selectedStartingPosition}
                 labelFieldName="name"
                 valueFieldName="name"
                 maxItemsToShowInList={10}
-              ></AutoComplete>
-              <button class="ml-2">
+                dropdownClassName="w-full top-0 text-lg"
+                inputClassName="w-full h-full "
+              />
+              <button on:click={showAddPositionModal} class="ml-2">
                 <Icon
                   class="text-primary-700"
                   icon="ic:outline-add-location-alt"
@@ -225,14 +258,15 @@
             <div class="flex w-full h-[65px] align-middle">
               <AutoComplete
                 class="border h-[61px] border-gray mt-2 w-full rounded-md"
-                items={data.positions}
+                searchFunction={searchPosition}
                 bind:text={endPositionText}
                 bind:selectedItem={selectedEndPosition}
                 labelFieldName="name"
                 valueFieldName="name"
                 maxItemsToShowInList={10}
+                dropdownClassName="w-full top-0 text-lg"
               ></AutoComplete>
-              <button class="ml-2">
+              <button on:click={showAddPositionModal} class="ml-2">
                 <Icon
                   class="text-primary-700"
                   icon="ic:outline-add-location-alt"
