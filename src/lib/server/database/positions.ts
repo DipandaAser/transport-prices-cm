@@ -171,3 +171,4 @@ export async function searchPosition(type: PositionTypes): Promise<Position[]> {
 
     return positions
 }
+
