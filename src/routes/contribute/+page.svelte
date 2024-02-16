@@ -177,18 +177,22 @@
 
   <svelte:fragment slot="footer">
     {#if processingEnded}
-      <Button
-        on:click={() => {
-          alert("Working on it");
-          openModal = false;
-        }}>See result</Button
-      >
-      <Button
-        color="alternative"
-        on:click={() => {
-          openModal = false;
-        }}>Close</Button
-      >
+      <div class="w-full flex justify-end space-x-4">
+        <Button
+          href={"/s/" +
+            selectedStartingPosition.name +
+            "/" +
+            selectedEndPosition.name}
+        >
+          See result
+        </Button>
+        <Button
+          color="alternative"
+          on:click={() => {
+            openModal = false;
+          }}>Close</Button
+        >
+      </div>
     {/if}
   </svelte:fragment>
 </Modal>
