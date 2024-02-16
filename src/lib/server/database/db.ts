@@ -11,6 +11,7 @@ export async function connect() {
 // disconnect from the database
 export async function disconnect(): Promise<void> {
     await client.close();
+    console.log("MongoDB disconnected");
 }
 
 // get the database
