@@ -172,3 +172,132 @@ export async function searchPosition(type: PositionTypes): Promise<Position[]> {
     return positions
 }
 
+export async function getPositionByFullName(fullName: string): Promise<Position> {
+    return new Promise<Position>(async (resolve, reject) => {
+        const pipeline: any[] = [];
+
+        //lookup first parent. 
+        //The parent of a PositionTypes.Place is a PositionTypes.Ward
+        //The parent of a PositionTypes.Ward is a PositionTypes.City
+        // So these stages wil work for Place and Ward
+        // But it will not crash if we use it for City, it will just return and empty parent
+        pipeline.push(
+            {
+                '$lookup': {
+                    'from': positionCollectionName,
+                    'localField': 'parentId',
+                    'foreignField': '_id',
+                    'as': 'parent'
+                }
+            },
+            {
+                '$set': {
+                    'parent': {
+                        '$first': '$parent'
+                    }
+                }
+            },
+            // set the parent name by prefixing it with a comma
+            {
+                '$set': {
+                    'parent.name': {
+                        '$ifNull': [
+                            {
+                                '$concat': [
+                                    ', ', '$parent.name'
+                                ]
+                            }, ''
+                        ]
+                    }
+                }
+            })
+
+        // lookup second parent
+        // These stages will only work for Place, because the parent of a Place is a Ward and a Ward have a city parent
+        // It will not crash if we use it for Ward or City, it will just return an empty parent
+        pipeline.push(
+            {
+                '$lookup': {
+                    'from': positionCollectionName,
+                    'localField': 'parent.parentId',
+                    'foreignField': '_id',
+                    'as': 'parent.parent'
+                }
+            },
+            {
+                '$set': {
+                    'parent.parent': {
+                        '$first': '$parent.parent'
+                    }
+                }
+            },
+            // set the parent name by prefixing it with a comma
+            {
+                '$set': {
+                    'parent.parent.name': {
+                        '$ifNull': [
+                            {
+                                '$concat': [
+                                    ', ', '$parent.parent.name'
+                                ]
+                            },
+                            '',
+                        ]
+                    }
+                }
+            })
+
+        // Concatenate the name of the position with the name of its parents
+        pipeline.push({
+            '$set': {
+                'name': {
+                    '$concat': [
+                        '$name', '$parent.name', '$parent.parent.name'
+                    ]
+                }
+            }
+        })
+
+        // filter by name
+        pipeline.push(
+            {
+                '$match': {
+                    '$expr': {
+                        '$regexMatch': {
+                            'input': "$name",
+                            'regex': new RegExp(`^${fullName}$`, 'i')
+                        }
+                    }
+                }
+            }
+        )
+
+        //limit to 1
+        pipeline.push({
+            '$limit': 1
+        })
+
+
+
+        const data = await getDB().collection<Position>(positionCollectionName).aggregate(pipeline).toArray()
+        if (!data) {
+            reject(new Error("No data found"))
+            return
+        }
+
+        const positions = data.map((position) => {
+            return {
+                _id: position._id as unknown as string,
+                name: position.name,
+                parentId: position.parentId,
+                positionType: position.positionType,
+                latitude: position.latitude,
+                longitude: position.longitude,
+                createdAt: position.createdAt
+            } as Position
+        })
+
+        resolve(positions[0])
+    });
+}
+
