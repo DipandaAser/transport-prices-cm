@@ -8,6 +8,7 @@
   //@ts-ignore
   import AutoComplete from "simple-svelte-autocomplete";
   import { onMount } from "svelte";
+  import { Button } from "flowbite-svelte";
 
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
@@ -28,6 +29,28 @@
         return [];
       });
   }
+
+  let searchUrlPath: string = "";
+  let startingLocation: string = "";
+  let endingLocation: string = "";
+
+  function formatSearchURLPath(
+    startingLocation: string,
+    endingLocation: string,
+  ): string {
+    let base = "/s";
+    if (startingLocation !== "") {
+      base += `/${startingLocation}`;
+    }
+
+    if (endingLocation !== "") {
+      base += `/${endingLocation}`;
+    }
+
+    return base;
+  }
+
+  $: searchUrlPath = formatSearchURLPath(startingLocation, endingLocation);
 </script>
 
 <svelte:head>
@@ -65,23 +88,18 @@
           >
             {multiLang.travelFrom()}
           </label>
-          <!-- <input
-            class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            id="from"
-            placeholder={multiLang.startingLocationPlaceholder()}
-          /> -->
-
-          <div class="text-lg">
+          <div class="">
             <AutoComplete
               id="from"
-              class="border h-[61px] text-gray-800 mt-2 w-full text-lg font-bold rounded-md flex px-3 py-2"
+              class="border h-[61px] text-gray-800 mt-2 w-full text-base  tracking-wide font-semibold rounded-md flex px-3 py-2"
               placeholder={multiLang.startingLocationPlaceholder()}
               searchFunction={searchPosition}
+              bind:value={startingLocation}
+              localSorting={true}
               labelFieldName="name"
               valueFieldName="name"
-              maxItemsToShowInList={10}
-              dropdownClassName="w-full top-0 text-lg"
-              inputClassName="w-full h-full text-black font-bold "
+              maxItemsToShowInList={5}
+              dropdownClassName="w-full top-0 tracking-wide font-light text-base"
             />
           </div>
         </div>
@@ -92,30 +110,30 @@
           >
             {multiLang.to()}
           </label>
-          <!-- <input
-            class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            id="to"
-            placeholder={multiLang.destinationPlaceholder()}
-          /> -->
-          <AutoComplete
-            id="from"
-            class="border h-[61px] border-gray mt-2 w-full rounded-md flex bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            placeholder={multiLang.destinationPlaceholder()}
-            searchFunction={searchPosition}
-            labelFieldName="name"
-            valueFieldName="name"
-            maxItemsToShowInList={10}
-            dropdownClassName="w-full top-0 text-lg"
-          />
+          <div class="">
+            <AutoComplete
+              id="from"
+              class="border h-[61px] text-gray-800 mt-2 w-full text-base  tracking-wide font-semibold rounded-md flex px-3 py-2"
+              placeholder={multiLang.destinationPlaceholder()}
+              searchFunction={searchPosition}
+              bind:value={endingLocation}
+              localSorting={true}
+              labelFieldName="name"
+              valueFieldName="name"
+              maxItemsToShowInList={5}
+              dropdownClassName="w-full top-0 tracking-wide font-light text-base"
+            />
+          </div>
         </div>
-        <button
+        <Button
           class="space-x-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 w-full bg-[#bd1e59] text-white"
+          href={searchUrlPath}
         >
           <Icon icon="fluent:search-12-filled" height={24} />
           <span class="font-medium tracking-[.03em] text-base">
             {multiLang.seeAllPrices()}
           </span>
-        </button>
+        </Button>
       </div>
     </div>
   </div>

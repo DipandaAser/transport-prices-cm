@@ -61,12 +61,7 @@ export async function searchPosition(type: PositionTypes): Promise<Position[]> {
         })
     }
 
-    // sort by name
-    pipeline.push({
-        '$sort': {
-            'positionType': -1
-        }
-    })
+
 
     //lookup first parent. 
     //The parent of a PositionTypes.Place is a PositionTypes.Ward
@@ -150,6 +145,13 @@ export async function searchPosition(type: PositionTypes): Promise<Position[]> {
         }
     })
 
+
+    // sort by name
+    pipeline.push({
+        '$sort': {
+            'name': 1
+        }
+    })
 
 
     const data = await getDB().collection<Position>(positionCollectionName).aggregate(pipeline).toArray()
