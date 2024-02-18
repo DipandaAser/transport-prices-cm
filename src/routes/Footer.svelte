@@ -86,7 +86,11 @@
           class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-blue-500 dark:hover:text-white"
         />
       </FooterIcon>
-      <FooterIcon href="#">
+      <FooterIcon
+        href="https://github.com/DipandaAser/transport-prices-cm"
+        target="blank"
+        rel="noopener noreferrer"
+      >
         <Icon
           icon="fa:github-square"
           class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white"
