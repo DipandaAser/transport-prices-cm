@@ -12,7 +12,7 @@
   import { page } from "$app/stores";
 </script>
 
-<Footer footerType="socialmedia">
+<Footer class="mt-auto" footerType="socialmedia">
   <div class="md:flex md:justify-between">
     <div class="mb-6 md:mb-0">
       <FooterBrand href="/" src={logo} alt="Transport Logo" name="Transport" />
@@ -77,13 +77,13 @@
       <FooterIcon href="#">
         <Icon
           icon="fa:facebook-official"
-          class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-blue-700 dark:hover:text-white"
         />
       </FooterIcon>
       <FooterIcon href="#">
         <Icon
           icon="fa:twitter-square"
-          class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          class="w-6 h-6 text-gray-500 dark:text-gray-500 hover:text-blue-500 dark:hover:text-white"
         />
       </FooterIcon>
       <FooterIcon href="#">
