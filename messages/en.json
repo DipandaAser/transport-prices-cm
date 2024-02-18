@@ -17,10 +17,12 @@
 	"deleteThisPrice": "Delete this price",
 	"day": "Day",
 	"night": "Night",
-	"inwhichParentLocationThisLocationIsLocated": "In which {parentLocation} this {location} is located ?",
+	"inWhichParentLocationThisLocationIsLocated": "In which {parentLocation} this {location} is located ?",
 	"chooseTheLocationType": "Choose the location type",
 	"nameOf": "Name of the",
 	"notFoundYourLocationAddIt": "Not found your {locationType} {location}? Add it",
 	"savingInProgress": "Saving in progress",
-	"locationAddedSuccessfully": "Location added successfully"
+	"locationAddedSuccessfully": "Location added successfully",
+	"contributeMainTitle": "You want to add a price? You are welcome!",
+	"contributeSubTitle": "Your entry is helpful for everyone. Please ensure that it is fair, accurate and up-to-date."
 }

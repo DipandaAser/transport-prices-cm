@@ -206,13 +206,12 @@
 
 <div class="mb-10">
   <div class="container mx-auto w-10/12">
-    <h1>Vous voulez ajouter un tarif ? C'est par ici !</h1>
+    <h1>{multiLang.contributeMainTitle()}</h1>
     <p
-      class="text-center text-xs sm:text-base pt-2 md:pt-4 font-normal"
+      class="text-center text-xs sm:text-base pt-2 md:pt-4 font-normal tracking-wide"
       style="color: rgb(46, 46, 46); font-family: &quot;Inter&quot;, sans-serif;"
     >
-      Your entry is anonymous. Please ensure that it is fair, accurate and
-      honest.
+      {multiLang.contributeSubTitle()}
     </p>
     <form>
       <div class="flex flex-col md:w-10/12 mx-auto">

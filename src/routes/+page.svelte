@@ -1,8 +1,33 @@
-<script>
+<script lang="ts">
   import welcome from "$lib/images/svelte-welcome.webp";
   import welcome_fallback from "$lib/images/svelte-welcome.png";
   import * as multiLang from "$paraglide/messages";
   import Icon from "@iconify/svelte";
+  import { PositionTypes } from "$models/position";
+  import { searchPositionAPI } from "$lib/apiClient/positions";
+  //@ts-ignore
+  import AutoComplete from "simple-svelte-autocomplete";
+  import { onMount } from "svelte";
+
+  onMount(() => {
+    document.querySelectorAll(".autocomplete").forEach((el) => {
+      // Fix the position of the dropdown to be in the middle of the input
+      (el as HTMLElement).style.setProperty("height", "113%");
+      el.classList.add("w-full");
+    });
+  });
+
+  async function searchPosition(keyword: string) {
+    let positionToSearch: PositionTypes = PositionTypes.All;
+
+    return searchPositionAPI(positionToSearch)
+      .then((positions) => {
+        return positions;
+      })
+      .catch(() => {
+        return [];
+      });
+  }
 </script>
 
 <svelte:head>
@@ -31,7 +56,7 @@
         </h2>
       </div>
       <div
-        class="lg:p-[32px] w-full lg:w-[500px] lg:h-[15rem] lg:justify-around space-y-4 self-center bg-white rounded-lg p-4 shadow-lg"
+        class="lg:p-[32px] w-full lg:w-[500px] lg:justify-around space-y-4 self-center bg-white rounded-lg p-4 shadow-lg"
       >
         <div class="">
           <label
@@ -40,11 +65,25 @@
           >
             {multiLang.travelFrom()}
           </label>
-          <input
+          <!-- <input
             class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             id="from"
             placeholder={multiLang.startingLocationPlaceholder()}
-          />
+          /> -->
+
+          <div class="text-lg">
+            <AutoComplete
+              id="from"
+              class="border h-[61px] text-gray-800 mt-2 w-full text-lg font-bold rounded-md flex px-3 py-2"
+              placeholder={multiLang.startingLocationPlaceholder()}
+              searchFunction={searchPosition}
+              labelFieldName="name"
+              valueFieldName="name"
+              maxItemsToShowInList={10}
+              dropdownClassName="w-full top-0 text-lg"
+              inputClassName="w-full h-full text-black font-bold "
+            />
+          </div>
         </div>
         <div class="">
           <label
@@ -53,10 +92,20 @@
           >
             {multiLang.to()}
           </label>
-          <input
+          <!-- <input
             class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             id="to"
             placeholder={multiLang.destinationPlaceholder()}
+          /> -->
+          <AutoComplete
+            id="from"
+            class="border h-[61px] border-gray mt-2 w-full rounded-md flex bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder={multiLang.destinationPlaceholder()}
+            searchFunction={searchPosition}
+            labelFieldName="name"
+            valueFieldName="name"
+            maxItemsToShowInList={10}
+            dropdownClassName="w-full top-0 text-lg"
           />
         </div>
         <button

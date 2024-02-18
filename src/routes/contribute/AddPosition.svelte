@@ -258,7 +258,7 @@
           <div class="w-full mb-6">
             <Label>
               <span>
-                {multilang.inwhichParentLocationThisLocationIsLocated({
+                {multilang.inWhichParentLocationThisLocationIsLocated({
                   parentLocation:
                     PositionsTypesI18N[multilangRuntime.languageTag()][
                       parentPosiotionType

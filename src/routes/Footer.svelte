@@ -9,12 +9,13 @@
   } from "flowbite-svelte";
   import Icon from "@iconify/svelte";
   import logo from "$lib/images/svelte-logo.svg";
+  import { page } from "$app/stores";
 </script>
 
 <Footer footerType="socialmedia">
   <div class="md:flex md:justify-between">
     <div class="mb-6 md:mb-0">
-      <FooterBrand href="#" src={logo} alt="Transport Logo" name="Transport" />
+      <FooterBrand href="/" src={logo} alt="Transport Logo" name="Transport" />
     </div>
     <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4">
       <div>
@@ -57,10 +58,10 @@
           Language | Langue
         </h2>
         <FooterLinkGroup>
-          <FooterLink liClass="mb-4" href="#" hreflang="en"
+          <FooterLink liClass="mb-4" href={$page.url.toString()} hreflang="en"
             >English | Anglais</FooterLink
           >
-          <FooterLink liClass="mb-4" href="#" hreflang="fr"
+          <FooterLink liClass="mb-4" href={$page.url.toString()} hreflang="fr"
             >French | Français</FooterLink
           >
         </FooterLinkGroup>
