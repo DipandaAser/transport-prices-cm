@@ -39,11 +39,11 @@
     endingLocation: string,
   ): string {
     let base = "/s";
-    if (startingLocation !== "") {
+    if (startingLocation && startingLocation !== "") {
       base += `/${startingLocation}`;
     }
 
-    if (endingLocation !== "") {
+    if (endingLocation && endingLocation !== "") {
       base += `/${endingLocation}`;
     }
 
