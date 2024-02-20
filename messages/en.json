@@ -24,5 +24,17 @@
 	"savingInProgress": "Saving in progress",
 	"locationAddedSuccessfully": "Location added successfully",
 	"contributeMainTitle": "You want to add a price? You are welcome!",
-	"contributeSubTitle": "Your entry is helpful for everyone. Please ensure that it is fair, accurate and up-to-date."
+	"contributeSubTitle": "Your entry is helpful for everyone. Please ensure that it is fair, accurate and up-to-date.",
+	"locationNotFoundMetaTitle": "Unable to find {location}",
+	"locationNotFoundMetaDescription": "We are unable to find {location}. Please check your spelling or try a different location",
+	"locationNotFoundTitle": "Sorry, but no results could be found for your query",
+	"suggestions": "Suggestions",
+	"suggestionsCheckLocationSpelling": "Check spelling of your locations.",
+	"suggestionsTryDifferentLocation": "Try a different location.",
+	"suggestionsContributeLocation": "Contribute by adding missing locations.",
+	"suggestionsContributePrice": "Contribute by adding missing prices.",
+	"suggestionsRequestLocation": "Request a location to be added.",
+	"suggestionsRequestPrice": "Request a price to be added.",
+	"feedBackFormLink": "https://forms.gle/wGrec6AeJv74Cqk3A",
+	"errorOccurSendFeedback": "If this error continues to happen, please send a {feedbackHtml} to us and we'll see if we can help."
 }

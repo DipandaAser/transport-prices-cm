@@ -24,5 +24,17 @@
 	"savingInProgress": "Enregistrement en cours",
 	"locationAddedSuccessfully": "Position ajoutée avec succès",
 	"contributeMainTitle": "Vous voulez ajouter un tarif ? C'est par ici !",
-	"contributeSubTitle": "Rendez la vie plus facile à tout le monde ! Enregistrez des tarifs à jour et honnêtes."
+	"contributeSubTitle": "Rendez la vie plus facile à tout le monde ! Enregistrez des tarifs à jour et honnêtes.",
+	"locationNotFoundMetaTitle": "Impossible de trouver {location}",
+	"locationNotFoundMetaDescription": "Nous ne trouvons pas {location}. Verifiez l'orthographe ou essayez une autre localisation",
+	"locationNotFoundTitle": "Désolé, mais aucun résultat n'a été trouvé pour votre requête",
+	"suggestions": "Suggestions",
+	"suggestionsCheckLocationSpelling": "Vérifiez l'orthographe de vos localisations.",
+	"suggestionsTryDifferentLocation": "Essayez une autre position.",
+	"suggestionsContributeLocation": "Contribuez en ajoutant des localisations manquantes.",
+	"suggestionsContributePrice": "Contribuez en ajoutant des tarifs manquants.",
+	"suggestionsRequestLocation": "Demandez l'ajout d'une localisation.",
+	"suggestionsRequestPrice": "Demandez l'ajout d'un tarif.",
+	"feedBackFormLink": "https://forms.gle/2ohhUB72dDuesT6e8",
+	"errorOccurSendFeedback": "Si cette erreur continue de se produire, veuillez nous envoyer un {feedbackHtml} et nous essaierons de vous aider."
 }

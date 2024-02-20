@@ -5,6 +5,7 @@
   import { i18n } from "$lib/i18n";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
+  import TwitterMeta from "$components/meta/TwitterMeta.svelte";
 </script>
 
 <ParaglideJS {i18n}>

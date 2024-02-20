@@ -9,6 +9,7 @@
   import AutoComplete from "simple-svelte-autocomplete";
   import { onMount } from "svelte";
   import { Button } from "flowbite-svelte";
+  import TwitterMeta from "$components/meta/TwitterMeta.svelte";
 
   onMount(() => {
     document.querySelectorAll(".autocomplete").forEach((el) => {
@@ -56,6 +57,8 @@
 <svelte:head>
   <title>{multiLang.htmlTitle()}</title>
   <meta name="description" content={multiLang.htmlDescription()} />
+  <meta property="og:description" content={multiLang.htmlDescription()} />
+  <TwitterMeta title="HOMEPAGE" />
 </svelte:head>
 
 <div
@@ -94,7 +97,7 @@
               class="border h-[61px] text-gray-800 mt-2 w-full text-base  tracking-wide font-semibold rounded-md flex px-3 py-2"
               placeholder={multiLang.startingLocationPlaceholder()}
               searchFunction={searchPosition}
-              bind:value={startingLocation}
+              bind:text={startingLocation}
               localSorting={true}
               labelFieldName="name"
               valueFieldName="name"
@@ -116,7 +119,7 @@
               class="border h-[61px] text-gray-800 mt-2 w-full text-base  tracking-wide font-semibold rounded-md flex px-3 py-2"
               placeholder={multiLang.destinationPlaceholder()}
               searchFunction={searchPosition}
-              bind:value={endingLocation}
+              bind:text={endingLocation}
               localSorting={true}
               labelFieldName="name"
               valueFieldName="name"
