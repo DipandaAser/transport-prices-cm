@@ -1,14 +1,19 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import * as multiLang from "$paraglide/messages";
+    import { languageTag } from "$paraglide/runtime";
     import OpenGraphMeta from "$components/meta/OpenGraphMeta.svelte";
     import { onMount } from "svelte";
     import { searchPositionAPI } from "$lib/apiClient/positions";
     import { PositionTypes } from "$models/position";
     import Icon from "@iconify/svelte";
-    import { Button } from "flowbite-svelte";
+    import { Accordion, AccordionItem, Button, Span } from "flowbite-svelte";
     //@ts-ignore
     import AutoComplete from "simple-svelte-autocomplete";
+    import {
+        TransportTypeIconsInDropdown,
+        TransportTypeLabelsTranslated,
+    } from "$models/prices";
     onMount(() => {
         document.querySelectorAll(".autocomplete").forEach((el) => {
             // Fix the position of the dropdown to be in the middle of the input
@@ -64,8 +69,12 @@
     }
 
     let searchUrlPath: string = "";
-    let startingLocation: string = "";
-    let endingLocation: string = "";
+    let startingLocation: string = data.location1.data?.name || "";
+    let endingLocation: string = data.location2.data?.name || "";
+    const startingLocationShortName: string =
+        data.location1.data?.name.split(",")[0] || "";
+    const endingLocationShortName: string =
+        data.location2.data?.name.split(",")[0] || "";
 
     function formatSearchURLPath(
         startingLocation: string,
@@ -103,11 +112,20 @@
                 class="lg:max-w-[50%] text-white text-left flex flex-col justify-center"
             >
                 {#if data.location1.found && data.location2.found}
-                    <span> Locations found </span>
+                    <h2 class="font-bold uppercase tracking-wide">
+                        {multiLang.whatIsThePrice()}
+                    </h2>
                 {/if}
 
                 <h1 class="text-start tracking-normal text-3xl lg:text-6xl">
-                    {multiLang.mainTitle()}
+                    {#if data.location1.found && data.location2.found}
+                        {data.location1.data?.name.split(",")[0] + " "}
+                        {multiLang.to()}
+                        <br />
+                        {data.location2.data?.name.split(",")[0]}
+                    {:else}
+                        {multiLang.mainTitle()}
+                    {/if}
                 </h1>
                 <h2 class="font-bold uppercase tracking-wide">
                     {multiLang.mainSubtitle()}
@@ -174,8 +192,8 @@
     </div>
 </div>
 
-<div class="my-auto px-5">
-    {#if !data.location1.found || !data.location2.found}
+<div class="my-auto px-5 bg-[#f5f5f6]">
+    {#if data.location1.found === false || data.location2.found === false}
         <section class="w-full my-20 text-black">
             <h2 class="text-5xl mb-10 text-black">
                 {multiLang.locationNotFoundTitle()}
@@ -206,19 +224,81 @@
         </section>
     {/if}
 
-    {#if data.location1.found && data.location2.found}
+    {#if data.location1.found === true && data.location2.found === true && data.prices.exist === false}
         <!-- Locations exits but not prices -->
-        <div class="bg-primary-500 h-full" style="height: 700px;">
-            Two locations "{data.location1.searchWord}" TO "{data.location2
-                .searchWord}"
-        </div>
+        <section class="w-full my-20 text-black">
+            <h2 class="text-5xl mb-10 text-black">
+                {multiLang.locationNotFoundTitle()}
+            </h2>
+            <div class="text-l">
+                <p class="mb-3">{multiLang.suggestions()}</p>
+                <ul class="pl-9 list-inside list-disc space-y-1 mb-3">
+                    <li>
+                        {multiLang.suggestionsContributePrice()}
+                        <!-- TODO: Add link to redirect to specifiq page -->
+                    </li>
+                    <li>
+                        {multiLang.suggestionsRequestPrice()}
+                        <!-- TODO: Add link to redirect to specifiq page -->
+                    </li>
+                </ul>
+                <p>
+                    {@html multiLang.errorOccurSendFeedback({
+                        feedbackHtml:
+                            '<a target="_blank" rel="noopener noreferrer" href=' +
+                            multiLang.feedBackFormLink() +
+                            ">feedback</a>",
+                    })}
+                </p>
+            </div>
+        </section>
     {/if}
 
-    {#if data.location1.found && data.location2.found}
+    {#if data.prices.exist === true}
         <!-- Locations and prices exits -->
-        <div class="bg-primary-500 h-full" style="height: 700px;">
-            Two locations "{data.location1.searchWord}" TO "{data.location2
-                .searchWord}"
+        <div class="">
+            <article>
+                <div class="space-y-4">
+                    <h2 class="text-black text-lg">
+                        There are {data.prices.data.length} way to travel from {startingLocationShortName}
+                        to {endingLocationShortName}
+                    </h2>
+                    <p class="text-l">
+                        Select an option below to more details an oothers prices
+                        for that transport type
+                    </p>
+                </div>
+
+                <div class="">
+                    <h3>Popular Option</h3>
+                    <div>
+                        <Accordion defaultClass="bg-white" style="width= 100%">
+                            <AccordionItem>
+                                <span class="flex space-x-3" slot="header">
+                                    <Icon
+                                        icon={TransportTypeIconsInDropdown[
+                                            data.prices.data[0]._id
+                                        ]}
+                                        height={24}
+                                    />
+                                    <span>
+                                        {TransportTypeLabelsTranslated[
+                                            languageTag()
+                                        ][data.prices.data[0]._id]}
+                                    </span>
+                                </span>
+                                <p
+                                    class="mb-2 text-gray-500 dark:text-gray-400"
+                                >
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit. Illo ab necessitatibus
+                                    sint explicabo ...
+                                </p>
+                            </AccordionItem>
+                        </Accordion>
+                    </div>
+                </div>
+            </article>
         </div>
     {/if}
 

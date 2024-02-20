@@ -159,3 +159,19 @@ export function generateMetadataForTransportType(transportType: TransportType): 
             return {}
     }
 }
+
+
+export interface PricesByTransportType {
+    _id: TransportType
+    total: number
+    prices: PriceData[]
+}
+
+export interface PriceData {
+    price: string
+    total: number
+    refs: Price[]
+}
+
+
+

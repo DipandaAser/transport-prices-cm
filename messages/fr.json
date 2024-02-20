@@ -36,5 +36,6 @@
 	"suggestionsRequestLocation": "Demandez l'ajout d'une localisation.",
 	"suggestionsRequestPrice": "Demandez l'ajout d'un tarif.",
 	"feedBackFormLink": "https://forms.gle/2ohhUB72dDuesT6e8",
-	"errorOccurSendFeedback": "Si cette erreur continue de se produire, veuillez nous envoyer un {feedbackHtml} et nous essaierons de vous aider."
+	"errorOccurSendFeedback": "Si cette erreur continue de se produire, veuillez nous envoyer un {feedbackHtml} et nous essaierons de vous aider.",
+	"whatIsThePrice": "Combien coûte le transport de"
 }

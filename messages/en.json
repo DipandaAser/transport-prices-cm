@@ -36,5 +36,6 @@
 	"suggestionsRequestLocation": "Request a location to be added.",
 	"suggestionsRequestPrice": "Request a price to be added.",
 	"feedBackFormLink": "https://forms.gle/wGrec6AeJv74Cqk3A",
-	"errorOccurSendFeedback": "If this error continues to happen, please send a {feedbackHtml} to us and we'll see if we can help."
+	"errorOccurSendFeedback": "If this error continues to happen, please send a {feedbackHtml} to us and we'll see if we can help.",
+	"whatIsThePrice": "What is the price for"
 }
