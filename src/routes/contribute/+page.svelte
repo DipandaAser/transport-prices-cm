@@ -204,7 +204,7 @@
 <!-- TODO: uncomment the code when going to prod. And comment the following code -->
 <!-- <AddPosition open={true} /> -->
 
-<div class="mb-10">
+<div class="mb-10 mt-14">
   <div class="container mx-auto w-10/12">
     <h1>{multiLang.contributeMainTitle()}</h1>
     <p
