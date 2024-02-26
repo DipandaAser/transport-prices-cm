@@ -1,19 +1,16 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import * as multiLang from "$paraglide/messages";
-    import { languageTag } from "$paraglide/runtime";
     import OpenGraphMeta from "$components/meta/OpenGraphMeta.svelte";
     import { onMount } from "svelte";
     import { searchPositionAPI } from "$lib/apiClient/positions";
     import { PositionTypes } from "$models/position";
     import Icon from "@iconify/svelte";
-    import { Accordion, AccordionItem, Button, Span } from "flowbite-svelte";
+    import { Button } from "flowbite-svelte";
+    import Accordion from "./Accordion.svelte";
     //@ts-ignore
     import AutoComplete from "simple-svelte-autocomplete";
-    import {
-        TransportTypeIconsInDropdown,
-        TransportTypeLabelsTranslated,
-    } from "$models/prices";
+    import ScrollDownIconAnimate from "./ScrollDownIconAnimate.svelte";
     onMount(() => {
         document.querySelectorAll(".autocomplete").forEach((el) => {
             // Fix the position of the dropdown to be in the middle of the input
@@ -106,7 +103,7 @@
 >
     <div class="container lg:flex mx-auto my-auto px-4 justify-around">
         <div
-            class="lg:justify-evenly flex flex-col space-y-10 lg:space-y-0 lg:space-x-2 lg:flex-row"
+            class="lg:justify-evenly flex flex-col lg:space-y-0 lg:space-x-2 lg:flex-row"
         >
             <div
                 class="lg:max-w-[50%] text-white text-left flex flex-col justify-center"
@@ -131,6 +128,25 @@
                     {multiLang.mainSubtitle()}
                 </h2>
             </div>
+
+            {#if data.prices.exist}
+                <div
+                    class="flex flex-col items-center justify-center lg:hidden"
+                >
+                    <span
+                        style="font-size: 12px;"
+                        class=" text-white opacity-100 animate-pulse uppercase"
+                        >{multiLang.scrollDownToSeeResults()}
+                    </span>
+                    <div
+                        style="margin-top: 0;"
+                        class="flex h-8 mb-8 text-center m-0 w-full justify-center align-middle lg:hidden"
+                    >
+                        <ScrollDownIconAnimate />
+                    </div>
+                </div>
+            {/if}
+
             <div
                 class="lg:p-[32px] w-full lg:w-[500px] lg:justify-around space-y-4 self-center bg-white rounded-lg p-4 shadow-lg"
             >
@@ -192,7 +208,7 @@
     </div>
 </div>
 
-<div class="my-auto px-5 bg-[#f5f5f6]">
+<div class="px-5 bg-[#ffffff]">
     {#if data.location1.found === false || data.location2.found === false}
         <section class="w-full my-20 text-black">
             <h2 class="text-5xl mb-10 text-black">
@@ -260,7 +276,8 @@
             <article>
                 <div class="space-y-4">
                     <h2 class="text-black text-lg">
-                        There are {data.prices.data.length} way to travel from {startingLocationShortName}
+                        There are {data.prices.transportTypes.length} way to travel
+                        from {startingLocationShortName}
                         to {endingLocationShortName}
                     </h2>
                     <p class="text-l">
@@ -270,33 +287,7 @@
                 </div>
 
                 <div class="">
-                    <h3>Popular Option</h3>
-                    <div>
-                        <Accordion defaultClass="bg-white" style="width= 100%">
-                            <AccordionItem>
-                                <span class="flex space-x-3" slot="header">
-                                    <Icon
-                                        icon={TransportTypeIconsInDropdown[
-                                            data.prices.data[0]._id
-                                        ]}
-                                        height={24}
-                                    />
-                                    <span>
-                                        {TransportTypeLabelsTranslated[
-                                            languageTag()
-                                        ][data.prices.data[0]._id]}
-                                    </span>
-                                </span>
-                                <p
-                                    class="mb-2 text-gray-500 dark:text-gray-400"
-                                >
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Illo ab necessitatibus
-                                    sint explicabo ...
-                                </p>
-                            </AccordionItem>
-                        </Accordion>
-                    </div>
+                    <Accordion data={data.prices.transportTypes} />
                 </div>
             </article>
         </div>

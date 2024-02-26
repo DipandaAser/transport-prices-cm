@@ -41,7 +41,7 @@ export const load = (async ({ params }) => {
         },
         prices: {
             exist: isPricesExist,
-            data: prices,
+            transportTypes: prices,
         }
     };
 }) satisfies PageServerLoad;

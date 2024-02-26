@@ -9,7 +9,7 @@
 	"startingLocationPlaceholder": "Où êtes-vous ?",
 	"destinationPlaceholder": "Où voulez-vous aller ?",
 	"seeAllPrices": "Voir tous les tarifs",
-	"prices": "Prix",
+	"prices": "Trarifs",
 	"price": "Prix",
 	"addAnotherPrice": "Ajouter un tarif",
 	"save": "Enregistrer",
@@ -37,5 +37,12 @@
 	"suggestionsRequestPrice": "Demandez l'ajout d'un tarif.",
 	"feedBackFormLink": "https://forms.gle/2ohhUB72dDuesT6e8",
 	"errorOccurSendFeedback": "Si cette erreur continue de se produire, veuillez nous envoyer un {feedbackHtml} et nous essaierons de vous aider.",
-	"whatIsThePrice": "Combien coûte le transport de"
+	"whatIsThePrice": "Combien coûte le transport de",
+	"scrollDownToSeeResults": "Défilez vers le bas pour voir les tarifs",
+	"noComments": "Pas de commentaire",
+	"showMoreTransportPrices": "Afficher {numberOfItems} autres tarifs ",
+	"hideMoreTransportPrices": "Masquer {numberOfItems} tarifs ",
+	"vip": "VIP",
+	"vipMotorbike": "Sans bachement",
+	"vipTaxi": "VIP"
 }

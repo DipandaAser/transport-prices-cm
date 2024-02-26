@@ -5,6 +5,12 @@ const config = {
   plugins: [require('flowbite/plugin')],
 
   darkMode: 'class',
+  variants: {
+    extend: {
+      opacity: ['responsive', 'hover', 'focus', 'active', 'group-hover'],
+      transitionProperty: ['responsive', 'hover', 'focus'],
+    },
+  },
 
   theme: {
     extend: {
