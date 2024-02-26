@@ -12,7 +12,7 @@
   import { page } from "$app/stores";
 </script>
 
-<Footer class="mt-auto" footerType="socialmedia">
+<Footer class="mt-auto border-t-2" footerType="socialmedia">
   <div class="md:flex md:justify-between">
     <div class="mb-6 md:mb-0">
       <FooterBrand href="/" src={logo} alt="Transport Logo" name="Transport" />
