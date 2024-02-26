@@ -33,7 +33,7 @@
   <Navbar
     class="px-2 sm:px-4 py-2.5  w-full z-20 top-0 start-0 {backgroundIsTransparent
       ? 'bg-transparent fixed'
-      : 'fixed'}  "
+      : 'fixed border-gray-300 border-b'}  "
   >
     <NavBrand href="/">
       <img src={logo} class="me-3 h-6 sm:h-9" alt="Flowbite Logo" />
